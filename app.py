@@ -1,6 +1,5 @@
 from flask import Flask
 from flask_restful import Api
-from flask_jwt import JWT
 from resources.receive_data import ReceiveData
 from resources.ping import Ping
 
