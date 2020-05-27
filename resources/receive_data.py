@@ -1,7 +1,5 @@
 from flask_restful import Resource, reqparse
 from models.database import DatabaseInteract
-from marshmallow import Schema, fields, pprint
-import json
 from ast import literal_eval
 
 class ReceiveData(Resource):
@@ -12,30 +10,16 @@ class ReceiveData(Resource):
     def post(self):
         received_data = ReceiveData.parser.parse_args()
         insert_list=[]
+
         for items in received_data['data']:
-            dict_items = literal_eval(items)
-            insert_list.append(f'{dict_items["measurement"]},device_id={dict_items["device_id"]} {dict_items["data_type"]}={dict_items["value"]}')
-        
+            dict_items = literal_eval(items) # Desserializa o dicionário enviado pelo cliente
+            
+            try:
+                insert_list.append(f'{dict_items["measurement"]},device_id={dict_items["device_id"]} {dict_items["data_type"]}={dict_items["value"]} {dict_items["timestamp"]}')
+            except Exception as e:
+                print(e)
+                return {"message": "The server did not understand this request"},400
         data = DatabaseInteract(insert_list)
 
-        result = data.insert()
+        result = data.insert() # Método que insere os dados do objeto no banco
         return result
-
-
-'''
-    parser.add_argument('device_id',
-    type=str, required=True,
-    help="device_id Can't be left blank")
-    
-    parser.add_argument('measurement',
-    type=str, required=True,
-    help="measurement Can't be left blank")
-
-    parser.add_argument('data_type',
-    type=str, required=True,
-    help="data_type Can't be left blank")
-
-    parser.add_argument('value',
-    required=True,
-    help="value Can't be left blank")
-    '''
