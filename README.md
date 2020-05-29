@@ -31,3 +31,19 @@ CMD flask run
 4. Iniciar o container
 
 ```docker container run -d -p 5000:5000 flaskapp```
+
+
+
+## Usando a API
+O formato aceito pela rota /send da API, o o seguinte:
+```
+{
+  "data":[
+    {"device_id":"device-1","measurement":"room","data_type":"temperature","value":25.0, "timestamp":1589984618},
+    {"device_id":"device-2","measurement":"kitchen","data_type":"temperature","value":24.5, "timestamp":""},
+    {"device_id":"device-3","measurement":"bedroom","data_type":"temperature","value":24.3, "timestamp":""},
+    {"device_id":"device-4","measurement":"closet","data_type":"temperature","value":26, "timestamp":""},
+    {"device_id":"device-5","measurement":"garden","data_type":"temperature","value":22, "timestamp":""}
+    ]
+}
+```
