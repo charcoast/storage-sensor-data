@@ -35,7 +35,8 @@ CMD flask run
 
 
 ## Usando a API
-O formato aceito pela rota /send da API, o o seguinte:
+* POST /send <br/> 
+aceita o seguinte formato:
 ```
 {
   "data":[
@@ -47,3 +48,6 @@ O formato aceito pela rota /send da API, o o seguinte:
     ]
 }
 ```
+
+* GET /ping<br/>
+Retorna 200OK quando o servidor está up.
